@@ -1,15 +1,16 @@
 package com.example.ejercicio01
 
-import com.google.gson.annotations.SerializedName
-
-data class Product(
-    val id: Int,
-    val title: String,
-    val description: String,
-    val price: Double,
-    val thumbnail: String
+data class PokemonResponse(
+    val results: List<PokemonResult> // Debe llamarse "results"
 )
 
-data class ProductResponse(
-    val products: List<Product>
-)
+data class PokemonResult(
+    val name: String,
+    val url: String
+) {
+    val id: String
+        get() = url.split("/").filter { it.isNotEmpty() }.last()
+
+    val imageUrl: String
+        get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
+}
